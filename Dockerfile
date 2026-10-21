@@ -1,4 +1,4 @@
-FROM node:24.4.0-alpine3.22 AS builder
+FROM node:24.22.1-alpine3.23 AS builder
 
 # Must be entire project because `prepare` script is run during `npm install` and requires all files.
 COPY . /app
@@ -11,7 +11,7 @@ RUN --mount=type=cache,target=/root/.npm npm install
 # Build the project (this will use the devDependencies like typescript and shx)
 RUN npm run build
 
-FROM node:24.4.0-alpine3.22 AS release
+FROM node:24.22.1-alpine3.23 AS release
 
 # Install tini for proper signal handling
 RUN apk add --no-cache tini
